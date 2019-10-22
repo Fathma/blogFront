@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import '../../App.css';
 
-class Reg extends Component {
+class Login extends Component {
     constructor(props){
         super(props)
 
@@ -15,6 +15,7 @@ class Reg extends Component {
         this.change = this.change.bind(this)
         this.submit = this.submit.bind(this)
     }
+
     change(e){
         this.setState({
             [e.target.name] : e.target.value
@@ -44,4 +45,4 @@ class Reg extends Component {
  
 }
 
-export default Reg;
+export default Login;
