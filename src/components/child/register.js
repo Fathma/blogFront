@@ -18,11 +18,10 @@ class Reg extends Component {
        </form>
        <a href="http://localhost:5000/user/google" >Google Signin.</a> <br></br>
        <a href="http://localhost:5000/user/facebook" >Facebook Signin.</a>
-
       </div>
-    );
+    )
   }
- 
+
 }
 
 export default Reg;
