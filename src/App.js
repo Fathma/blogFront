@@ -6,6 +6,9 @@ import Login from './components/child/login'
 import Profile from './components/child/profile'
 
 
+import { MDBContainer} from 'mdbreact'
+import Navb from "./components/child/nav"
+
 import{ BrowserRouter, Switch, Route} from 'react-router-dom'
 
 import './App.css';
@@ -14,7 +17,10 @@ class App extends Component {
   
   render(){
     return (
-      <BrowserRouter >
+      <MDBContainer >
+        
+        <BrowserRouter >
+        <Navb />
         <Switch>
           <Route path="/list" exact component={List} />
           <Route path="/register" exact component={Reg} />
@@ -22,6 +28,10 @@ class App extends Component {
           <Route path="/profile" exact component={Profile} />
         </Switch>
       </BrowserRouter>
+
+      </MDBContainer>
+    
+      
     );
   }
  
