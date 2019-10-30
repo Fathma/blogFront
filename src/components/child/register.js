@@ -26,7 +26,8 @@ class Reg extends Component {
           <MDBCol md="6">
             <MDBCard style={{ align: "center" }}>
               <MDBCardBody className="mx-4">
-                <form action="/user/register" method="POST">
+                <form action="/user/register" method="POST" enctype='multipart/form-data'>
+                  
                   <p className="h4 text-center mb-4">Sign up</p>
                   <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                     Your name
@@ -86,6 +87,9 @@ class Reg extends Component {
                     id="password2"
                     className="form-control"
                   />
+                  <br />
+                  <input type="file" name="imageURL"></input>
+                  <br />
                   <div className="text-center mt-4">
                     <MDBBtn color="unique" type="submit">Register</MDBBtn>
                   </div>
