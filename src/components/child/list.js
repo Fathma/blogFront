@@ -23,7 +23,13 @@ class List extends Component {
           return(
             <ul>
                 {this.state.users.map((user)=>{
-                    return <li>{user.email}</li>
+                    return (
+                      <div>
+                        <img src={user.imageURL} width= "200" height="200" />
+                        <li>{user.email}</li>
+                      </div>
+                      
+                    )
                 })}
             </ul>
           )

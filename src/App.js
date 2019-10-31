@@ -20,7 +20,7 @@ class App extends Component {
       <MDBContainer >
         
         <BrowserRouter >
-        <Navb />
+        {/* <Navb /> */}
         <Switch>
           <Route path="/list" exact component={List} />
           <Route path="/register" exact component={Reg} />
