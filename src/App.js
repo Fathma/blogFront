@@ -4,6 +4,10 @@ import List from './components/child/list'
 import Reg from './components/child/register'
 import Login from './components/child/login'
 import Profile from './components/child/profile'
+import Post from './components/child/allposts'
+
+
+
 
 
 import { MDBContainer} from 'mdbreact'
@@ -26,6 +30,7 @@ class App extends Component {
           <Route path="/register" exact component={Reg} />
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile} />
+          <Route path="/allpost" exact component={Post} />
         </Switch>
       </BrowserRouter>
 
