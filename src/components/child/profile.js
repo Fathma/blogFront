@@ -15,14 +15,19 @@ class List extends Component {
     if( !jwt ) this.props.history.push('/login')
 
     axios.get('/user/profile', { headers: { Authorization: `Bearer ${jwt}` } })
-    .then( res => this.setState({ user: res.data }))
+    .then( res => {
+      this.setState({ user: res.data })
+      axios.get('/user/profile', { headers: { Authorization: `Bearer ${jwt}` } })
+      .then( res => this.setState({ userPost: res.data }))
+      .catch( err => this.props.history.push('/login'))
+    })
     .catch( err => this.props.history.push('/login'))
   }
 
   render(){
     if (this.state.user !== undefined ){
         return(
-            <p>{ this.state.user.email }</p>
+            <p>{ this.state.user.email } </p>
         )
     }else{
         return(
