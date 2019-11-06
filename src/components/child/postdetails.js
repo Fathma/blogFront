@@ -39,18 +39,27 @@ class Postdetails extends Component {
 
         })
     }
-
+    
+    savecomment = ()=>{
+        let jwtt = localStorage.getItem('jwt')
+        if( !jwtt ) this.props.history.push('/login')
+        
+        return (
+            axios.post(`/post/addcomment/${this.props.match.params.id}`, {headers: { Authorization: `Bearer ${jwtt}`}},{ comment: this.state.comment }).then(res => { console.log(res.data)
+            }).catch( err =>{
+            console.log(err)
+            } )
+        )
+    }
     submit(e) {
         e.preventDefault()
+        this.savecomment()
         
-        axios.post(`/post/addcomment/${this.props.match.params.id}`, { comment: this.state.comment }).then(res => {
-            
-        })
     }
   
   render(){
     
-        if(this.state.loading == true){
+        if(this.state.loading === true){
             return(
             <ul>      
                 <li>loading....</li>             
@@ -59,7 +68,7 @@ class Postdetails extends Component {
             
         }else{
             return(
-               <div>
+               <div >
                    Title: {this.state.post.title}<br />
                    Author: {this.state.post.author.name}<br />
                    Body: {this.state.post.body}<br />
@@ -71,7 +80,7 @@ class Postdetails extends Component {
                             </form>
                    {this.state.post.comments.map(comment=>{
                        return(
-                        <div>
+                        <div key={comment._id}>
                          <p>{comment.comment} <a href="#">{comment.user.name}</a></p>
                         </div>
                        )
@@ -79,9 +88,6 @@ class Postdetails extends Component {
                </div>
             )
         }
-    
-    
-        
   }
  
 }
