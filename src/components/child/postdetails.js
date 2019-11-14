@@ -21,7 +21,7 @@ class Postdetails extends Component {
         const jwt = localStorage.getItem('jwt')
         if( !jwt ) this.props.history.push('/login')
         return (
-            axios.get( `/post/postdetails/${this.props.match.params.id}` , { headers: { Authorization: `Bearer ${jwt}` }})
+            axios.get( `/post/postdetails/${this.props.match.params.id}` , { headers: { Authorization: `Bearer ${jwt}` }, comment: this.state.comment })
             .then( res =>this.setState({ post: res.data,loading: false }))
             .catch( err => this.props.history.push('/login'))
         )
@@ -36,7 +36,6 @@ class Postdetails extends Component {
     change(e) {
         this.setState({
             [e.target.name]: e.target.value
-
         })
     }
     
@@ -45,11 +44,11 @@ class Postdetails extends Component {
         if( !jwtt ) this.props.history.push('/login')
         
         return (
-            axios.post(`/post/addcomment/${this.props.match.params.id}`, {headers: { Authorization: `Bearer ${jwtt}`}},{ comment: this.state.comment }).then(res => { console.log(res.data)
-            }).catch( err =>{
-            console.log(err)
-            } )
+            axios.post( `/post/addcomment/${this.props.match.params.id }`, { comment: this.state.comment }, { headers: { Authorization: `Bearer ${jwtt}`} })
+            .then( res => window.location.reload())
+            .catch( err => this.props.history.push('/login'))
         )
+        
     }
     submit(e) {
         e.preventDefault()
