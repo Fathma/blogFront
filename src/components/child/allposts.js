@@ -26,7 +26,7 @@ class Post extends Component {
         {this.state.posts.map((post)=>{
           return (
             <div>
-              <a href={'/postdetails/'+post._id}>
+              <a href={'/details/'+post._id}>
               Title: { post.title } <br />
               Author: { post.author.name }<br />
               Body: { post.body }<br /><br />

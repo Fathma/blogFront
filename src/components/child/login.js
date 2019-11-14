@@ -29,8 +29,11 @@ class Login extends Component {
 
     submit(e) {
         e.preventDefault()
-        axios.post('/user/login', { email: this.state.email, password: this.state.password }).then(res => {
+        
+        axios.post('/user/login', { email: this.state.email, password: this.state.password })
+        .then(res => {
             localStorage.setItem('jwt', res.data)
+            this.props.history.push('/login')
         })
     }
 

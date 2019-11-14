@@ -48,12 +48,21 @@ class Postdetails extends Component {
             .then( res => window.location.reload())
             .catch( err => this.props.history.push('/login'))
         )
-        
     }
     submit(e) {
         e.preventDefault()
         this.savecomment()
+    }
+    
+
+    deleteComment(e, comment_id){
+        e.preventDefault()
+        let jwtt = localStorage.getItem('jwt')
+        if( !jwtt ) this.props.history.push('/login')
         
+        axios.delete( `/post/deletecomment/${comment_id}/${this.props.match.params.id }`, { headers: { Authorization: `Bearer ${jwtt}`} })
+        .then( res => window.location.reload())
+        .catch( err => this.props.history.push('/login'))
     }
   
   render(){
@@ -73,14 +82,14 @@ class Postdetails extends Component {
                    Body: {this.state.post.body}<br />
                    likes: {this.state.post.likes.length}<br />
                    comments: <form onSubmit={e => this.submit(e)}>
-                                <input type="hidden" name="post_id" value={this.state.post_id}  onChange={e => this.change(e)} />
+                                <input type="hidden" name="post_id" value={this.state.post_id}  onChange={ e => this.change(e)} />
                                 <textarea name="comment"  onChange={e => this.change(e)}></textarea>
                                 <button>submit</button>
                             </form>
                    {this.state.post.comments.map(comment=>{
                        return(
                         <div key={comment._id}>
-                         <p>{comment.comment} <a href="#">{comment.user.name}</a></p>
+                         <p>{comment.comment} <a href="/profile">{ comment.user.name }</a><button onClick={e=>this.deleteComment( e, comment._id )}>X</button></p>
                         </div>
                        )
                    })}

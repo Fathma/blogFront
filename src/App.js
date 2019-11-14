@@ -6,6 +6,8 @@ import Login from './components/child/login'
 import Profile from './components/child/profile'
 import Post from './components/child/allposts'
 import Postdetails from './components/child/postdetails'
+import Createpost from './components/child/createpost'
+
 
 
 import { MDBContainer} from 'mdbreact'
@@ -30,6 +32,8 @@ class App extends Component {
           <Route path="/profile" exact component={Profile} />
           <Route path="/allpost" exact component={Post} />
           <Route path="/details/:id" component={Postdetails} />
+          <Route path="/createpost" exact component={Createpost} />
+
         </Switch>
       </BrowserRouter>
 
