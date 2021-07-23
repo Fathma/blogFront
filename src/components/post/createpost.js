@@ -50,7 +50,7 @@ class CreatePost extends Component {
                         <MDBCard style={{ align: "center" }}>
                             <MDBCardBody className="mx-4">
                                 <form onSubmit={e => this.submit1(e)} >
-                                    <p className="h5 text-center mb-4">Sign in</p>
+                                    <p className="h5 text-center mb-4">Create Post</p>
                                     <div className="grey-text">
                                         <MDBInput
                                             label="Type your title"

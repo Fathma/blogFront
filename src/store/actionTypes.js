@@ -1,0 +1,3 @@
+export const SET_AUTH_TOKEN = "SET_AUTH_TOKEN";
+export const SET_USER_DETAILS = "SET_USER_DETAILS";
+export const SET_LOADER_STATUS = "SET_LOADER_STATUS";
