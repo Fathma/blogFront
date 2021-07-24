@@ -1,25 +1,25 @@
-import React from 'react';
-import { Component } from 'react';
+import React from "react";
+import { Component } from "react";
 
-import '../../App.css';
-import axios from 'axios';
+import axios from "axios";
 
 class List extends Component {
   constructor() {
-    super()
-    this.state = {}
+    super();
+    this.state = {};
   }
 
   componentDidMount() {
-    const jwt = localStorage.getItem('jwt')
-    if (!jwt) this.props.history.push('/login')
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) this.props.history.push("/login");
 
-    axios.get('/user/list', { headers: { Authorization: `Bearer ${jwt}` } })
-      .then(res => {
-        console.log(res.data)
-        this.setState({ users: res.data })
+    axios
+      .get("/user/list", { headers: { Authorization: `Bearer ${jwt}` } })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ users: res.data });
       })
-      .catch(err => this.props.history.push('/login'))
+      .catch((err) => this.props.history.push("/login"));
   }
   render() {
     if (this.state.users !== undefined) {
@@ -28,21 +28,17 @@ class List extends Component {
           {this.state.users.map((user) => {
             return (
               <div>
-                <img src={user.imageURL} width="200" height="200" />
+                <img src={user.imageURL} width='200' height='200' />
                 <li>{user.email}</li>
               </div>
-
-            )
+            );
           })}
         </ul>
-      )
+      );
     } else {
-      return (
-        <p>loading.......</p>
-      )
+      return <p>loading.......</p>;
     }
   }
-
 }
 
 export default List;

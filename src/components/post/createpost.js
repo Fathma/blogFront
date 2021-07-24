@@ -15,7 +15,7 @@ import {
   MDBIcon,
 } from "mdbreact";
 
-import "../../App.css";
+import { Button } from "@material-ui/core";
 
 class CreatePost extends Component {
   constructor(props) {
@@ -87,9 +87,13 @@ class CreatePost extends Component {
                     />
                   </div>
                   <div className='text-center mt-4'>
-                    <MDBBtn color='unique' type='submit'>
-                      Create
-                    </MDBBtn>
+                    <Button
+                      variant='contained'
+                      style={{ backgroundColor: "white" }}
+                      type='submit'
+                    >
+                      Post
+                    </Button>
                   </div>
                 </form>
               </MDBCardBody>

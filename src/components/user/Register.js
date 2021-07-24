@@ -12,8 +12,7 @@ import {
 } from "mdbreact";
 
 import { userRegister } from "../../store/actions/user";
-
-import "../../App.css";
+import { Button } from "@material-ui/core";
 
 class Register extends Component {
   constructor() {
@@ -132,9 +131,13 @@ class Register extends Component {
                   <input type='file' name='imageURL'></input>
                   <br />
                   <div className='text-center mt-4'>
-                    <MDBBtn color='unique' type='submit'>
+                    <Button
+                      variant='contained'
+                      style={{ backgroundColor: "white" }}
+                      type='submit'
+                    >
                       Register
-                    </MDBBtn>
+                    </Button>
                   </div>
                 </form>
                 <a href='http://localhost:5000/user/google'>Google Signin.</a>{" "}

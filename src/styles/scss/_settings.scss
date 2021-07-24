@@ -1,0 +1,13 @@
+$color-accent: #fdfdfc;
+$color-secondary: #fcfaf8;
+$color-primary: #ff9d00;
+$color-text: #030303;
+
+// Breakpoints
+$breakpoints: (
+  small: 0,
+  medium: 640px,
+  large: 950px,
+  xlarge: 1600px,
+  xxlarge: 1900px,
+);

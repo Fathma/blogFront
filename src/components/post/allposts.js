@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 
-import "../../App.css";
-import axios from "axios";
 import { getPosts } from "../../store/actions/post";
 
 // class AllPosts extends Component {

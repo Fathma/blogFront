@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 
-import "../../App.css";
 import { getUserDetails } from "../../store/actions/user";
 
 // class Profile extends Component {

@@ -14,9 +14,9 @@ import {
   MDBIcon,
 } from "mdbreact";
 
-import { login } from "../../store/actions/auth";
+import { Button } from "@material-ui/core";
 
-import "../../App.css";
+import { login } from "../../store/actions/auth";
 
 class Login extends Component {
   constructor(props) {
@@ -84,9 +84,13 @@ class Login extends Component {
                       />
                     </div>
                     <div className='text-center mt-4'>
-                      <MDBBtn color='unique' type='submit'>
+                      <Button
+                        variant='contained'
+                        style={{ backgroundColor: "white" }}
+                        type='submit'
+                      >
                         Login
-                      </MDBBtn>
+                      </Button>
                     </div>
                   </form>
                   <a href='http://localhost:5000/user/google'>

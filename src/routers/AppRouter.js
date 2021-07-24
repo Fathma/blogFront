@@ -12,6 +12,8 @@ import AllPosts from "../components/post/AllPosts";
 import CreatePost from "../components/post/CreatePost";
 import PostDetails from "../components/post/PostDetails";
 
+import "../styles/style.scss";
+
 export const history = createBrowserHistory();
 
 const AppRoute = () => {
@@ -21,6 +23,7 @@ const AppRoute = () => {
         <PublicRoute exact={true} path='/register' component={Register} />
         <PublicRoute exact={true} path='/login' component={Login} />
         <PrivateRoute exact={true} path='/profile' component={Profile} />
+        <PrivateRoute exact={true} path='/' component={AllPosts} />
         <PrivateRoute exact={true} path='/allpost' component={AllPosts} />
         <PrivateRoute exact={true} path='/createpost' component={CreatePost} />
         <PrivateRoute

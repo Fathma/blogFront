@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 /* Global Styles */
 :root {
@@ -16,10 +16,10 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color: $color-primary;
   color: #333;
 }
 
@@ -318,10 +318,10 @@ input {
   color: #888;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='date'],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
 select,
 textarea {
   display: block;
@@ -331,7 +331,7 @@ textarea {
   border: 1px solid #ccc;
 }
 
-input[type='submit'],
+input[type="submit"],
 button {
   font: inherit;
 }
@@ -348,6 +348,7 @@ table th {
 
 /* Navbar */
 .navbar {
+  background-color: $color-secondary !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -356,6 +357,7 @@ table th {
   width: 100%;
   opacity: 0.9;
   margin-bottom: 1rem;
+  box-shadow: 5px -5px 14px #aaaaaa;
 }
 
 .navbar ul {
@@ -363,13 +365,14 @@ table th {
 }
 
 .navbar a {
-  color: #fff;
+  color: $color-text;
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
 .navbar a:hover {
-  color: var(--light-color);
+  color: $color-primary;
+  text-decoration: none;
 }
 
 .navbar .welcome span {
