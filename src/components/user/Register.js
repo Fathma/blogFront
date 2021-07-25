@@ -5,8 +5,9 @@ import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody } from "mdbreact";
 
 import { userRegister } from "../../store/actions/user";
 import { Button } from "@material-ui/core";
+import { setLoaderStatus } from "../../store/actions/settings";
 
-const Register = ({ userRegister }) => {
+const Register = ({ userRegister, setLoaderStatus }) => {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -15,7 +16,9 @@ const Register = ({ userRegister }) => {
   });
   const submit = async (e) => {
     e.preventDefault();
+    setLoaderStatus(true);
     await userRegister(data);
+    setLoaderStatus(false);
     window.location.replace("/login");
   };
 
@@ -132,4 +135,5 @@ const Register = ({ userRegister }) => {
 
 export default connect(null, {
   userRegister,
+  setLoaderStatus,
 })(Register);
