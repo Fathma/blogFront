@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getPosts } from "../../store/actions/post";
 import { setLoaderStatus } from "../../store/actions/settings";
 
-const AllPosts = ({ token, getPosts, setLoaderStatus }) => {
+const AllPosts = ({ getPosts, setLoaderStatus }) => {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const AllPosts = ({ token, getPosts, setLoaderStatus }) => {
 
   const get_posts = async () => {
     setLoaderStatus(true);
-    let res = await getPosts(token);
+    let res = await getPosts();
     setPosts(res.data);
     setLoaderStatus(false);
   };
@@ -41,7 +41,7 @@ const AllPosts = ({ token, getPosts, setLoaderStatus }) => {
 };
 
 const mapStateToProps = (state) => ({
-  token: state.auth.token,
+  // token: state.auth.token,
 });
 
 export default connect(mapStateToProps, { getPosts, setLoaderStatus })(

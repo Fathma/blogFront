@@ -8,18 +8,12 @@ import Loader from "../components/snippets/Loader";
 import PageTitle from "../components/layouts/PageTitle";
 import Nav from "../components/layouts/Nav";
 
-const PublicRoute = ({
-  auth,
-  getApiUrl,
-  component: Component,
-  isAuthenticated,
-  ...rest
-}) => {
+const PublicRoute = ({ auth, getApiUrl, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated === true ? (
+        auth.isAuthenticated === true ? (
           <Redirect to={"/"} />
         ) : (
           <div className='auth-page'>

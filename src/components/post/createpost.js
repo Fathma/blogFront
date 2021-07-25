@@ -1,6 +1,4 @@
-import React from "react";
-import { Component } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -8,105 +6,82 @@ import {
   MDBRow,
   MDBCol,
   MDBInput,
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBModalFooter,
-  MDBIcon,
 } from "mdbreact";
 
 import { Button } from "@material-ui/core";
+import { createPost } from "../../store/actions/post";
 
-class CreatePost extends Component {
-  constructor(props) {
-    super(props);
+const CreatePost = ({ createPost }) => {
+  const [data, setData] = useState({
+    title: "",
+    body: "",
+  });
 
-    this.state = {
-      title: "",
-      body: "",
-    };
-    this.change = this.change.bind(this);
-    this.submit1 = this.submit1.bind(this);
-  }
-
-  change = (e) => {
-    this.setState({
+  const change = (e) => {
+    setData({
+      ...data,
       [e.target.name]: e.target.value,
     });
   };
 
-  submit1 = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+    let res = await createPost(data);
 
-    axios
-      .post(
-        "http://localhost/post/create/",
-        { title: this.state.title, body: this.state.body },
-        { headers: { Authorization: `Bearer ${this.props.token}` } }
-      )
-      .then((res) => {
-        this.props.history.push("/allpost");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    window.location.replace("/allpost");
   };
 
-  render() {
-    return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol md='6'>
-            <MDBCard style={{ align: "center" }}>
-              <MDBCardBody className='mx-4'>
-                <form onSubmit={(e) => this.submit1(e)}>
-                  <p className='h5 text-center mb-4'>Create Post</p>
-                  <div className='grey-text'>
-                    <MDBInput
-                      label='Type your title'
-                      onChange={(e) => this.change(e)}
-                      value={this.state.email}
-                      name='title'
-                      icon='envelope'
-                      group
-                      type='text'
-                      validate
-                      error='wrong'
-                      success='right'
-                    />
-                    <MDBInput
-                      label='Type your body'
-                      onChange={(e) => this.change(e)}
-                      value={this.state.body}
-                      type='textarea'
-                      name='body'
-                      icon='lock'
-                      row='5'
-                      group
-                      validate
-                    />
-                  </div>
-                  <div className='text-center mt-4'>
-                    <Button
-                      variant='contained'
-                      style={{ backgroundColor: "white" }}
-                      type='submit'
-                    >
-                      Post
-                    </Button>
-                  </div>
-                </form>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    );
-  }
-}
+  return (
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol md='6'>
+          <MDBCard style={{ align: "center" }}>
+            <MDBCardBody className='mx-4'>
+              <form onSubmit={(e) => submit(e)}>
+                <p className='h5 text-center mb-4'>Create Post</p>
+                <div className='grey-text'>
+                  <MDBInput
+                    label='Type your title'
+                    onChange={(e) => change(e)}
+                    value={data.title}
+                    name='title'
+                    icon='envelope'
+                    group
+                    type='text'
+                    validate
+                    error='wrong'
+                    success='right'
+                  />
+                  <MDBInput
+                    label='Type your body'
+                    onChange={(e) => change(e)}
+                    value={data.body}
+                    type='textarea'
+                    name='body'
+                    icon='lock'
+                    row='5'
+                    group
+                    validate
+                  />
+                </div>
+                <div className='text-center mt-4'>
+                  <Button
+                    variant='contained'
+                    style={{ backgroundColor: "white" }}
+                    type='submit'
+                  >
+                    Post
+                  </Button>
+                </div>
+              </form>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  token: state.auth.token,
-});
-
-export default connect(mapStateToProps, {})(CreatePost);
+export default connect(null, { createPost })(CreatePost);

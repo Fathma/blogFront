@@ -13,10 +13,12 @@ const PostDetails = ({
   setLoaderStatus,
 }) => {
   const params = useParams();
+
   const [data, setData] = useState({
     comment: "",
     post_id: "",
   });
+
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -25,9 +27,10 @@ const PostDetails = ({
 
   const getData = async () => {
     setLoaderStatus(true);
-    let res = await getPost(token, params.id, data.comment);
 
+    let res = await getPost(token, params.id, data.comment);
     setPost(res.data);
+
     setLoaderStatus(false);
   };
 
@@ -48,7 +51,7 @@ const PostDetails = ({
   const delete_comment = async (e, comment_id) => {
     e.preventDefault();
     setLoaderStatus(true);
-    let res = await deleteComment(token, comment_id, params.id);
+    let res = await deleteComment(comment_id, params.id);
     setLoaderStatus(false);
     window.location.reload();
   };

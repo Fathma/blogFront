@@ -3,9 +3,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import AppRouter from "./routers/AppRouter";
-import configureStore from "../src/store/configureStore";
 
-export const { store, persistor } = configureStore();
+import { store, persistor } from "../src/store/configureStore";
 
 function App() {
   return (

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { USER_API_BASEURL } from "../../config";
+import AuthHeader from "../../utils/AuthHeader";
 
 export const userRegister = (data) => async (dispatch) => {
   try {
@@ -12,11 +13,10 @@ export const userRegister = (data) => async (dispatch) => {
 
 export const getUserDetails = (token) => async (dispatch) => {
   try {
-    let res = await axios.get(`${USER_API_BASEURL}/user/profile/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    let res = await axios.get(
+      `${USER_API_BASEURL}/user/profile/`,
+      AuthHeader()
+    );
 
     return res;
   } catch (error) {
