@@ -1,62 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Component } from "react";
 import { connect } from "react-redux";
 
 import { getUserDetails } from "../../store/actions/user";
+import { setLoaderStatus } from "../../store/actions/settings";
 
-// class Profile extends Component {
-//   constructor() {
-//     super();
-//     this.state = {};
-//   }
-
-//   componentDidMount() {
-//     axios
-//       .get("/user/profile", {
-//         headers: { Authorization: `Bearer ${this.props.token}` },
-//       })
-//       .then((res) => {
-//         this.setState({ user: res.data });
-//         axios
-//           .get("/user/profile", {
-//             headers: { Authorization: `Bearer ${this.props.token}` },
-//           })
-//           .then((res) => this.setState({ userPost: res.data }))
-//           .catch((err) => this.props.history.push("/login"));
-//       })
-//       .catch((err) => this.props.history.push("/login"));
-//   }
-
-//   render() {
-//     if (this.state.user !== undefined) {
-//       return <p>{this.state.user.email} </p>;
-//     } else {
-//       return <p>loading.......</p>;
-//     }
-//   }
-// }
-
-const Profile = ({ token, getUserDetails }) => {
+const Profile = ({ token, getUserDetails, setLoaderStatus }) => {
   const [user, setuser] = useState(null);
+
   useEffect(() => {
     get_user_details();
   }, []);
 
   const get_user_details = async () => {
+    setLoaderStatus(true);
     let res = await getUserDetails(token);
-    console.log(res);
     setuser(res.data);
+    setLoaderStatus(false);
   };
 
-  if (user !== null) {
-    return <p>{user.email} </p>;
-  } else {
-    return <p>loading.......</p>;
-  }
+  return <p>{user != null ? user.email : ""}</p>;
 };
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
 });
 
-export default connect(mapStateToProps, { getUserDetails })(Profile);
+export default connect(mapStateToProps, { getUserDetails, setLoaderStatus })(
+  Profile
+);

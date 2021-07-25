@@ -1,132 +1,106 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { deleteComment, saveComment, getPost } from "../../store/actions/post";
+import { setLoaderStatus } from "../../store/actions/settings";
 
-import axios from "axios";
+const PostDetails = ({
+  token,
+  deleteComment,
+  saveComment,
+  getPost,
+  setLoaderStatus,
+}) => {
+  const params = useParams();
+  const [data, setData] = useState({
+    comment: "",
+    post_id: "",
+  });
+  const [post, setPost] = useState(null);
 
-class PostDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      err: "",
-      comment: "",
-      post_id: "",
-      post: null,
-    };
+  useEffect(() => {
+    getData();
+  }, []);
 
-    this.change = this.change.bind(this);
-    this.submit = this.submit.bind(this);
-  }
+  const getData = async () => {
+    setLoaderStatus(true);
+    let res = await getPost(token, params.id, data.comment);
 
-  getData = () => {
-    return axios
-      .get(`http://localhost/post/getposts/${this.props.match.params.id}`, {
-        headers: { Authorization: `Bearer ${this.props.token}` },
-        comment: this.state.comment,
-      })
-      .then((res) => {
-        this.setState({ post: res.data });
-      })
-      .catch((err) => this.props.history.push("/login"));
+    setPost(res.data);
+    setLoaderStatus(false);
   };
 
-  componentDidMount() {
-    this.getData();
-  }
-
-  // new comment
-
-  change(e) {
-    this.setState({
+  const change = (e) => {
+    setData({
       [e.target.name]: e.target.value,
     });
-  }
-
-  savecomment = () => {
-    let jwtt = localStorage.getItem("jwt");
-    if (!jwtt) this.props.history.push("/login");
-
-    return axios
-      .post(
-        `/post/addcomment/${this.props.match.params.id}`,
-        { comment: this.state.comment },
-        { headers: { Authorization: `Bearer ${jwtt}` } }
-      )
-      .then((res) => window.location.reload())
-      .catch((err) => this.props.history.push("/login"));
   };
-  submit(e) {
+
+  const save_comment = async (e) => {
     e.preventDefault();
-    this.savecomment();
-  }
+    setLoaderStatus(true);
+    let res = await saveComment();
+    setLoaderStatus(false);
+    window.location.reload();
+  };
 
-  deleteComment(e, comment_id) {
+  const delete_comment = async (e, comment_id) => {
     e.preventDefault();
-    let jwtt = localStorage.getItem("jwt");
-    if (!jwtt) this.props.history.push("/login");
+    setLoaderStatus(true);
+    let res = await deleteComment(token, comment_id, params.id);
+    setLoaderStatus(false);
+    window.location.reload();
+  };
 
-    axios
-      .delete(
-        `/post/deletecomment/${comment_id}/${this.props.match.params.id}`,
-        { headers: { Authorization: `Bearer ${jwtt}` } }
-      )
-      .then((res) => window.location.reload())
-      .catch((err) => this.props.history.push("/login"));
-  }
-
-  render() {
-    if (this.state.post === null) {
-      return (
-        <ul>
-          <li>loading....</li>
-        </ul>
-      );
-    } else {
-      return (
-        <div>
-          Title: {this.state.post.title}
+  return (
+    <div>
+      {post != null && (
+        <>
+          Title: {post.title}
           <br />
-          Author: {this.state.post.author.name}
+          Author: {post.author.name}
           <br />
-          Body: {this.state.post.body}
+          Body: {post.body}
           <br />
-          likes: {this.state.post.likes.length}
+          likes: {post.likes.length}
           <br />
           comments:{" "}
-          <form onSubmit={(e) => this.submit(e)}>
+          <form onSubmit={(e) => save_comment(e)}>
             <input
               type='hidden'
               name='post_id'
-              value={this.state.post_id}
-              onChange={(e) => this.change(e)}
+              value={post._id}
+              onChange={(e) => change(e)}
             />
-            <textarea
-              name='comment'
-              onChange={(e) => this.change(e)}
-            ></textarea>
+            <textarea name='comment' onChange={(e) => change(e)}></textarea>
             <button>submit</button>
           </form>
-          {this.state.post.comments.map((comment) => {
+          {post.comments.map((comment) => {
             return (
               <div key={comment._id}>
                 <p>
                   {comment.comment} <a href='/profile'>{comment.user.name}</a>
-                  <button onClick={(e) => this.deleteComment(e, comment._id)}>
+                  <button onClick={(e) => delete_comment(e, comment._id)}>
                     X
                   </button>
                 </p>
               </div>
             );
           })}
-        </div>
-      );
-    }
-  }
-}
+        </>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
 });
 
-export default connect(mapStateToProps, {})(PostDetails);
+export default connect(mapStateToProps, {
+  deleteComment,
+  saveComment,
+  getPost,
+  setLoaderStatus,
+})(PostDetails);

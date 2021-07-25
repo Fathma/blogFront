@@ -35,9 +35,6 @@ class Register extends Component {
       password: this.state.password,
     };
     await this.props.userRegister(data);
-
-    // localStorage.setItem('jwt', res.data)
-    // window.location.replace("/login");
   };
 
   change = (e) => {

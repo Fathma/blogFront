@@ -21,7 +21,7 @@ const PrivateRoute = ({ auth, component: Component, roles, path, ...rest }) => {
                         LOGO={auth.tenant_info.tenant_logo}
                         /> */}
 
-              <Nav notifications={true} />
+              <Nav />
               <div className='main-content'>
                 <div className='main'>
                   <Component {...props} />
