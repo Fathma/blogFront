@@ -17,11 +17,6 @@ const PublicRoute = ({ auth, getApiUrl, component: Component, ...rest }) => {
           <Redirect to={"/"} />
         ) : (
           <div className='auth-page'>
-            {/* <PageTitle
-              TITLE={tenant_info.tenant_name}
-              LOGO={tenant_info.favicon_logo}
-            /> */}
-
             <Component {...props} />
             <Loader />
           </div>
