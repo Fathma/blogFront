@@ -1,12 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
+import NetworkError from "../components/snippets/NetworkError";
+import InternalServerError from "../components/snippets/InternalServerError";
 import Loader from "../components/snippets/Loader";
 // import NetworkError from "../components/snippets/NetworkError";
 // import InternalServerError from "../components/snippets/InternalServerError";
 import PageTitle from "../components/layouts/PageTitle";
 import Nav from "../components/layouts/Nav";
+import { Container } from '@material-ui/core';
+
 
 const PrivateRoute = ({ auth, component: Component, roles, path, ...rest }) => {
   return (
@@ -23,14 +26,16 @@ const PrivateRoute = ({ auth, component: Component, roles, path, ...rest }) => {
 
               <Nav />
               <div className='main-content'>
-                <div className='main'>
+
+                <Container maxWidth="sm">
                   <Component {...props} />
-                </div>
+                </Container>
+                
               </div>
 
               <Loader />
-              {/* <NetworkError />
-                        <InternalServerError /> */}
+              <NetworkError />
+              <InternalServerError />
             </div>
           );
         } else {
